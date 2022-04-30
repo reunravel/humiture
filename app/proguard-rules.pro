@@ -1,0 +1,3 @@
+-optimizationpasses 7
+-dontusemixedcaseclassnames
+-optimizations !code/simplification/artithmetic,!field/*,!class/merging/*
