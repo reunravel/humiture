@@ -1,0 +1,72 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1159565516041056429",
+      "lastPropertyId": "9:1496300850379619718",
+      "name": "DataBase",
+      "properties": [
+        {
+          "id": "1:3776749818393991864",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3564921288076146373",
+          "name": "CD",
+          "type": 7
+        },
+        {
+          "id": "3:5992677650767267269",
+          "name": "RH",
+          "type": 7
+        },
+        {
+          "id": "4:7886699942166094773",
+          "name": "Year",
+          "type": 9
+        },
+        {
+          "id": "5:2411372652947876564",
+          "name": "Month",
+          "type": 9
+        },
+        {
+          "id": "6:8301358800306502425",
+          "name": "Day",
+          "type": 9
+        },
+        {
+          "id": "7:3480779185743250102",
+          "name": "Hour",
+          "type": 9
+        },
+        {
+          "id": "8:5374466397177382338",
+          "name": "Minute",
+          "type": 9
+        },
+        {
+          "id": "9:1496300850379619718",
+          "name": "Second",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:1159565516041056429",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
