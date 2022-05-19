@@ -1,4 +1,4 @@
-package com.humiture;
+package com.humiture.Entity;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -7,27 +7,25 @@ import java.io.InputStream;
 import java.net.Socket;
 
 public class TcpClient {
-    private static TcpClient instance;
-    private final String ipAddress = "192.168.4.1";
-    private final int port = 8080;
-    Float[] TaH = {0f, 0f};
+    private static TcpClient tcpClient;
+    private final String ipAddress = "192.168.244.180";
+    private final int port = 2333;
+    //    private final String ipAddress = "192.168.4.1";
+//    private final int port = 8080;
     private Socket socket;
     private InputStream inputStream;
-    private OnReceiveCallbackBlock receivedCallback;
+    private OnReceiveCallbackBlock receiveCallbackBlock;
+    private OnReceiveCallbackBlock receiveCallbackBlockBox;
 
     private TcpClient() {
         super();
     }
 
     public static TcpClient sharedCenter() {
-        if (instance == null) {
-            synchronized (TcpClient.class) {
-                if (instance == null) {
-                    instance = new TcpClient();
-                }
-            }
+        if (tcpClient == null) {
+            tcpClient = new TcpClient();
         }
-        return instance;
+        return tcpClient;
     }
 
     public void connect() {
@@ -39,7 +37,12 @@ public class TcpClient {
                     receive();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(1000);
+                    connect();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         thread.start();
@@ -60,9 +63,11 @@ public class TcpClient {
                 }
                 String str = new String(bt, 0, length);
                 if (str.contains("TEMP:") || str.contains("HUM:")) {
+                    Float[] TaH = {0f, 0f};
                     TaH[0] = Float.parseFloat(StringUtils.substringBefore(StringUtils.substringAfter(str, ":"), "C"));
                     TaH[1] = Float.parseFloat(StringUtils.substringBeforeLast(StringUtils.substringAfterLast(str, ":"), "%"));
-                    receivedCallback.callback(TaH);
+                    receiveCallbackBlock.callback(TaH);
+                    receiveCallbackBlockBox.callback(TaH);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -70,8 +75,12 @@ public class TcpClient {
         }
     }
 
-    public void setReceivedCallback(OnReceiveCallbackBlock receivedCallback) {
-        this.receivedCallback = receivedCallback;
+    public void setReceiveCallbackBlock(OnReceiveCallbackBlock receiveCallbackBlock) {
+        this.receiveCallbackBlock = receiveCallbackBlock;
+    }
+
+    public void setReceiveCallbackBlockBox(OnReceiveCallbackBlock receiveCallbackBlockBox) {
+        this.receiveCallbackBlockBox = receiveCallbackBlockBox;
     }
 
     public interface OnReceiveCallbackBlock {

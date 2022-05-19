@@ -1,8 +1,11 @@
 package com.humiture;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static com.humiture.Entity.TcpClient.sharedCenter;
+
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,20 +21,39 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import java.util.ArrayList;
 
 public class introductoryActivity extends AppCompatActivity {
-
     int i = 0;
     int j;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introductry);
 
-        LineChart CD_lineChart;
-        LineChart RH_lineChart;
+        findViewById(R.id.History).setOnClickListener(v -> {
+            Intent intent = new Intent(introductoryActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
 
-        CD_lineChart = findViewById(R.id.CD_Line_chart);
-        RH_lineChart = findViewById(R.id.RH_Line_chart);
+        LineChart CD_lineChart = findViewById(R.id.CD_Line_chart);
+        LineChart RH_lineChart = findViewById(R.id.RH_Line_chart);
+
+        YAxis CD_AxisLift = CD_lineChart.getAxisLeft();
+        YAxis RH_AxisLift = RH_lineChart.getAxisLeft();
+
+        Description CD_Description = CD_lineChart.getDescription();
+        Description RH_Description = RH_lineChart.getDescription();
+
+        CD_lineChart.getXAxis().setEnabled(false);
+        CD_lineChart.getAxisRight().setEnabled(false);
+        CD_lineChart.getLegend().setEnabled(false);
+        CD_AxisLift.setAxisLineWidth(2);
+        CD_Description.setTextSize(25);
+
+        RH_lineChart.getXAxis().setEnabled(false);
+        RH_lineChart.getAxisRight().setEnabled(false);
+        RH_lineChart.getLegend().setEnabled(false);
+        RH_AxisLift.setAxisLineWidth(2);
+        RH_Description.setTextSize(25);
 
         ArrayList<Entry> CD_lineData = new ArrayList<>();
         ArrayList<Entry> RH_lineData = new ArrayList<>();
@@ -41,12 +63,6 @@ public class introductoryActivity extends AppCompatActivity {
 
         ArrayList<Integer> RH_lineColors = new ArrayList<>();
         ArrayList<Integer> RH_CircleColors = new ArrayList<>();
-
-        Description CD_Description = CD_lineChart.getDescription();
-        Description RH_Description = RH_lineChart.getDescription();
-
-        YAxis CD_AxisLift = CD_lineChart.getAxisLeft();
-        YAxis RH_AxisLift = RH_lineChart.getAxisLeft();
 
         int darkColor1 = Color.parseColor("#a1cfd4");
         int darkColor2 = Color.parseColor("#94ccff");
@@ -60,7 +76,8 @@ public class introductoryActivity extends AppCompatActivity {
         int lightColor4 = Color.parseColor("#7d5700");
         int lightColor5 = Color.parseColor("#bb1b1b");
 
-        TcpClient.sharedCenter().setReceivedCallback(receivedMessage -> {
+
+        sharedCenter().setReceiveCallbackBlock(receivedMessage -> {
 
             float CD_value = receivedMessage[0];
 
@@ -89,13 +106,9 @@ public class introductoryActivity extends AppCompatActivity {
             CD_lineDataSet.setCircleHoleRadius(5);
             CD_lineDataSet.setCircleRadius(8);
             CD_lineDataSet.setValueFormatter(new LargeValueFormatter(" ℃"));
-            CD_lineChart.getXAxis().setEnabled(false);
-            CD_lineChart.getAxisRight().setEnabled(false);
-            CD_AxisLift.setAxisLineWidth(2);
-            CD_lineChart.getLegend().setEnabled(false);
             CD_lineChart.setData(new LineData(CD_lineDataSet));
+            CD_lineChart.setVisibleXRange(0, 10);
             CD_Description.setText("Celsius Degree: " + CD_value + " ℃");
-            CD_Description.setTextSize(25);
 
             LineDataSet RH_lineDataSet = new LineDataSet(RH_lineData, "Relative Humidity");
             RH_lineDataSet.setValueTextSize(12);
@@ -104,21 +117,18 @@ public class introductoryActivity extends AppCompatActivity {
             RH_lineDataSet.setCircleHoleRadius(5);
             RH_lineDataSet.setCircleRadius(8);
             RH_lineDataSet.setValueFormatter(new LargeValueFormatter(" %"));
-            RH_lineChart.getXAxis().setEnabled(false);
-            RH_lineChart.getAxisRight().setEnabled(false);
-            RH_AxisLift.setAxisLineWidth(2);
-            RH_lineChart.getLegend().setEnabled(false);
             RH_lineChart.setData(new LineData(RH_lineDataSet));
+            RH_lineChart.setVisibleXRange(0, 10);
             RH_Description.setText("Relative Humidity: " + RH_value + " %");
-            RH_Description.setTextSize(25);
+
 
             if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == 32) {
-                j = CD_value < 0 ? darkColor1 : CD_value < 10 ? darkColor2 : CD_value < 20 ? darkColor3 : CD_value < 30 ? darkColor4 : darkColor5;
+                j = CD_value < 0 ? darkColor1 : ((CD_value < 10) ? darkColor2 : ((CD_value < 20) ? darkColor3 : ((CD_value < 30) ? darkColor4 : darkColor5)));
                 CD_lineColors.add(j);
                 CD_CircleColors.add(j);
                 CD_Description.setTextColor(j);
 
-                j = RH_value < 20 ? darkColor1 : RH_value < 40 ? darkColor2 : RH_value < 60 ? darkColor3 : RH_value < 80 ? darkColor4 : darkColor5;
+                j = RH_value < 20 ? darkColor1 : ((RH_value < 40) ? darkColor2 : ((RH_value < 60) ? darkColor3 : ((RH_value < 80) ? darkColor4 : darkColor5)));
                 RH_lineColors.add(j);
                 RH_CircleColors.add(j);
                 RH_Description.setTextColor(j);
@@ -164,16 +174,18 @@ public class introductoryActivity extends AppCompatActivity {
                 RH_lineColors.remove(0);
             }
 
-            if (Build.VERSION.SDK_INT >= 30) {
+            if (SDK_INT >= 30) {
                 CD_lineChart.setHardwareAccelerationEnabled(true);
                 RH_lineChart.setHardwareAccelerationEnabled(true);
             }
 
             CD_lineChart.notifyDataSetChanged();
             CD_lineChart.invalidate();
+            CD_lineChart.moveViewToX(CD_value);
 
             RH_lineChart.notifyDataSetChanged();
             RH_lineChart.invalidate();
+            RH_lineChart.moveViewToX(RH_value);
 
             i++;
         });
