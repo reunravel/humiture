@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         ObjectBox.init(this);
 
-        ObjectBox.boxStore.startObjectBrowser(10809);
-
         DataBase.addData();
 
         TcpClient.sharedCenter().connect();
