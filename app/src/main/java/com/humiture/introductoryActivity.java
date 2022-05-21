@@ -21,8 +21,7 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import java.util.ArrayList;
 
 public class introductoryActivity extends AppCompatActivity {
-    int i = 0;
-    int j;
+    int i, j;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,11 +82,8 @@ public class introductoryActivity extends AppCompatActivity {
 
             float RH_value = receivedMessage[1];
 
-            Entry CD_lineDatum = new Entry(i, CD_value);
-            Entry RH_lineDatum = new Entry(i, RH_value);
-
-            CD_lineData.add(CD_lineDatum);
-            RH_lineData.add(RH_lineDatum);
+            CD_lineData.add(new Entry(i, CD_value));
+            RH_lineData.add(new Entry(i, RH_value));
 
             if (i >= 10) {
                 CD_lineData.remove(0);
@@ -107,7 +103,6 @@ public class introductoryActivity extends AppCompatActivity {
             CD_lineDataSet.setCircleRadius(8);
             CD_lineDataSet.setValueFormatter(new LargeValueFormatter(" ℃"));
             CD_lineChart.setData(new LineData(CD_lineDataSet));
-            CD_lineChart.setVisibleXRange(0, 10);
             CD_Description.setText("Celsius Degree: " + CD_value + " ℃");
 
             LineDataSet RH_lineDataSet = new LineDataSet(RH_lineData, "Relative Humidity");
@@ -118,7 +113,6 @@ public class introductoryActivity extends AppCompatActivity {
             RH_lineDataSet.setCircleRadius(8);
             RH_lineDataSet.setValueFormatter(new LargeValueFormatter(" %"));
             RH_lineChart.setData(new LineData(RH_lineDataSet));
-            RH_lineChart.setVisibleXRange(0, 10);
             RH_Description.setText("Relative Humidity: " + RH_value + " %");
 
 
@@ -181,11 +175,9 @@ public class introductoryActivity extends AppCompatActivity {
 
             CD_lineChart.notifyDataSetChanged();
             CD_lineChart.invalidate();
-            CD_lineChart.moveViewToX(CD_value);
 
             RH_lineChart.notifyDataSetChanged();
             RH_lineChart.invalidate();
-            RH_lineChart.moveViewToX(RH_value);
 
             i++;
         });

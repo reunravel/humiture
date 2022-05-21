@@ -26,6 +26,7 @@ android {
     }
     buildToolsVersion '33.0.0 rc4'
     ndkVersion '24.0.8215888'
+    namespace 'com.humiture'
 }
 
 dependencies {

@@ -1,19 +1,22 @@
 package com.humiture.Entity;
 
+import static com.humiture.Entity.TcpClient.sharedCenter;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import io.objectbox.Box;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.query.Query;
 
 @Entity
 public class DataBase {
 
     @Id
     public long id;
-    public String Year, Month, Day, Hour, Minute, Second;
-    public float CD, RH;
+    public String Year, Month, Day, Hour, Minute;
+    public float Second, CD, RH;
 
     public DataBase() {
 
@@ -23,22 +26,22 @@ public class DataBase {
         Thread thread = new Thread(() -> {
             Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
 
-            SimpleDateFormat Year = new SimpleDateFormat("yyyy", Locale.CHINA);
-            SimpleDateFormat Month = new SimpleDateFormat("MM", Locale.CHINA);
-            SimpleDateFormat Day = new SimpleDateFormat("dd", Locale.CHINA);
-            SimpleDateFormat Hour = new SimpleDateFormat("HH", Locale.CHINA);
-            SimpleDateFormat Minute = new SimpleDateFormat("mm", Locale.CHINA);
-            SimpleDateFormat Second = new SimpleDateFormat("ss", Locale.CHINA);
+            SimpleDateFormat year = new SimpleDateFormat("yyyy", Locale.CHINA);
+            SimpleDateFormat month = new SimpleDateFormat("MM", Locale.CHINA);
+            SimpleDateFormat day = new SimpleDateFormat("dd", Locale.CHINA);
+            SimpleDateFormat hour = new SimpleDateFormat("HH", Locale.CHINA);
+            SimpleDateFormat minute = new SimpleDateFormat("mm", Locale.CHINA);
+            SimpleDateFormat second = new SimpleDateFormat("ss", Locale.CHINA);
 
-            TcpClient.sharedCenter().setReceiveCallbackBlockBox(receivedMessage -> {
+            sharedCenter().setReceiveCallbackBlockBox(receivedMessage -> {
                 DataBase dataBase = new DataBase();
 
-                dataBase.setYear(Year.format(System.currentTimeMillis()));
-                dataBase.setMonth(Month.format(System.currentTimeMillis()));
-                dataBase.setDay(Day.format(System.currentTimeMillis()));
-                dataBase.setHour(Hour.format(System.currentTimeMillis()));
-                dataBase.setMinute(Minute.format(System.currentTimeMillis()));
-                dataBase.setSecond(Second.format(System.currentTimeMillis()));
+                dataBase.setYear(year.format(System.currentTimeMillis()));
+                dataBase.setMonth(month.format(System.currentTimeMillis()));
+                dataBase.setDay(day.format(System.currentTimeMillis()));
+                dataBase.setHour(hour.format(System.currentTimeMillis()));
+                dataBase.setMinute(minute.format(System.currentTimeMillis()));
+                dataBase.setSecond(Float.parseFloat(second.format(System.currentTimeMillis())));
                 dataBase.setCD(receivedMessage[0]);
                 dataBase.setRH(receivedMessage[1]);
 
@@ -71,6 +74,11 @@ public class DataBase {
     public static String[] listMinuteData(String year, String month, String day, String hour) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
         return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour))))).build().property(DataBase_.Minute).distinct().findStrings();
+    }
+
+    public static Query<DataBase> queryData(String year, String month, String day, String hour, String minute) {
+        Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
+        return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour)).and(DataBase_.Minute.equal(minute))))).build();
     }
 
     public long getId() {
@@ -121,11 +129,11 @@ public class DataBase {
         this.Minute = Minute;
     }
 
-    public String getSecond() {
+    public Float getSecond() {
         return Second;
     }
 
-    public void setSecond(String Second) {
+    public void setSecond(Float Second) {
         this.Second = Second;
     }
 
