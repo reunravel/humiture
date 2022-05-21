@@ -177,6 +177,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         CD_lineChart.getAxisRight().setEnabled(false);
         CD_lineChart.getLegend().setEnabled(false);
+        CD_lineChart.getDescription().setEnabled(false);
 
         CD_AxisLift.setAxisLineWidth(2);
         CD_AxisBottom.setAxisLineWidth(2);
@@ -184,6 +185,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         RH_lineChart.getAxisRight().setEnabled(false);
         RH_lineChart.getLegend().setEnabled(false);
+        RH_lineChart.getDescription().setEnabled(false);
 
         RH_AxisLift.setAxisLineWidth(2);
         RH_AxisBottom.setAxisLineWidth(2);
