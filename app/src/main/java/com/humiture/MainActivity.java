@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.humiture.Entity.DataBase;
 import com.humiture.Entity.ObjectBox;
-import com.humiture.Entity.TcpClient;
 
 public class MainActivity extends AppCompatActivity {
     TextView name;
@@ -24,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         ObjectBox.init(this);
 
         DataBase.addData();
-
-        TcpClient.sharedCenter().connect();
 
         name = findViewById(R.id.name);
         lottieAnimationView = findViewById(R.id.lottie);

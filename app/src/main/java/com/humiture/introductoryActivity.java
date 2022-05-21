@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
+import com.humiture.Entity.TcpClient;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class introductoryActivity extends AppCompatActivity {
             Intent intent = new Intent(introductoryActivity.this, HistoryActivity.class);
             startActivity(intent);
         });
+
+        TcpClient.sharedCenter().connect();
 
         LineChart CD_lineChart = findViewById(R.id.CD_Line_chart);
         LineChart RH_lineChart = findViewById(R.id.RH_Line_chart);
