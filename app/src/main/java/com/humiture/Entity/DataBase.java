@@ -81,72 +81,36 @@ public class DataBase {
         return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour)).and(DataBase_.Minute.equal(minute))))).build();
     }
 
-    public long getId() {
-        return id;
-    }
-
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getYear() {
-        return Year;
     }
 
     public void setYear(String Year) {
         this.Year = Year;
     }
 
-    public String getMonth() {
-        return Month;
-    }
-
     public void setMonth(String Month) {
         this.Month = Month;
-    }
-
-    public String getDay() {
-        return Day;
     }
 
     public void setDay(String Day) {
         this.Day = Day;
     }
 
-    public String getHour() {
-        return Hour;
-    }
-
     public void setHour(String Hour) {
         this.Hour = Hour;
-    }
-
-    public String getMinute() {
-        return Minute;
     }
 
     public void setMinute(String Minute) {
         this.Minute = Minute;
     }
 
-    public Float getSecond() {
-        return Second;
-    }
-
     public void setSecond(Float Second) {
         this.Second = Second;
     }
 
-    public float getCD() {
-        return CD;
-    }
-
     public void setCD(float CD) {
         this.CD = CD;
-    }
-
-    public float getRH() {
-        return RH;
     }
 
     public void setRH(float RH) {
