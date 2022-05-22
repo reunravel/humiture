@@ -1,4 +1,4 @@
-package com.humiture.Entity;
+package com.humiture.entity;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.humiture.Entity.DataBase;
-import com.humiture.Entity.ObjectBox;
+import com.humiture.entity.DataBase;
+import com.humiture.entity.ObjectBox;
 
 public class MainActivity extends AppCompatActivity {
     TextView name;

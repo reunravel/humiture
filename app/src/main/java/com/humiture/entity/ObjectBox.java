@@ -1,4 +1,4 @@
-package com.humiture.Entity;
+package com.humiture.entity;
 
 import android.content.Context;
 

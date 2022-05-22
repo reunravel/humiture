@@ -2,5 +2,4 @@
     <string name="app_name">TaH</string>
     <string name="name">温湿度记录</string>
     <string name="History">History</string>
-    <string name="Clear">Clear</string>
 </resources>

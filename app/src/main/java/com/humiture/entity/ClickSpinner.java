@@ -1,4 +1,4 @@
-package com.humiture.Entity;
+package com.humiture.entity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.Spinner;
 @SuppressLint("AppCompatCustomView")
 public class ClickSpinner extends Spinner {
 
-    Point touchedPoint = new Point();
+    final Point touchedPoint = new Point();
     private boolean isMoved = false;
     private OnClickMyListener onClickMyListener;
 

@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RH_Line_chart">
 
-        <com.humiture.Entity.ClickSpinner
+        <com.humiture.entity.ClickSpinner
             android:id="@+id/Year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.humiture.Entity.ClickSpinner
+        <com.humiture.entity.ClickSpinner
             android:id="@+id/Month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             app:layout_constraintStart_toEndOf="@+id/Year"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.humiture.Entity.ClickSpinner
+        <com.humiture.entity.ClickSpinner
             android:id="@+id/Day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             app:layout_constraintStart_toEndOf="@+id/Month"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.humiture.Entity.ClickSpinner
+        <com.humiture.entity.ClickSpinner
             android:id="@+id/Hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             app:layout_constraintStart_toEndOf="@+id/Day"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.humiture.Entity.ClickSpinner
+        <com.humiture.entity.ClickSpinner
             android:id="@+id/Minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -18,9 +18,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.humiture.Entity.ClickSpinner;
-import com.humiture.Entity.DataBase;
-import com.humiture.Entity.DataBase_;
+import com.humiture.entity.ClickSpinner;
+import com.humiture.entity.DataBase;
+import com.humiture.entity.DataBase_;
 
 import java.util.ArrayList;
 

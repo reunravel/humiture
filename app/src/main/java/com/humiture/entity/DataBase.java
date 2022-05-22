@@ -1,6 +1,6 @@
-package com.humiture.Entity;
+package com.humiture.entity;
 
-import static com.humiture.Entity.TcpClient.sharedCenter;
+import static com.humiture.entity.TcpClient.sharedCenter;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -79,10 +79,6 @@ public class DataBase {
     public static Query<DataBase> queryData(String year, String month, String day, String hour, String minute) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
         return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour)).and(DataBase_.Minute.equal(minute))))).build();
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setYear(String Year) {

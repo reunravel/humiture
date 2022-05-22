@@ -1,7 +1,7 @@
 package com.humiture;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static com.humiture.Entity.TcpClient.sharedCenter;
+import static com.humiture.entity.TcpClient.sharedCenter;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,7 +17,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.humiture.Entity.TcpClient;
+import com.humiture.entity.TcpClient;
 
 import java.util.ArrayList;
 
