@@ -176,10 +176,8 @@ public class introductoryActivity extends AppCompatActivity {
                 RH_lineChart.setHardwareAccelerationEnabled(true);
             }
 
-            CD_lineChart.notifyDataSetChanged();
             CD_lineChart.invalidate();
 
-            RH_lineChart.notifyDataSetChanged();
             RH_lineChart.invalidate();
 
             i++;

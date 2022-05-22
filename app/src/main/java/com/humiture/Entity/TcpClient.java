@@ -8,10 +8,8 @@ import java.net.Socket;
 
 public class TcpClient {
     private static TcpClient tcpClient;
-    private final String ipAddress = "192.168.227.180";
-    private final int port = 2333;
-    //    private final String ipAddress = "192.168.4.1";
-//    private final int port = 8080;
+    private final String ipAddress = "192.168.4.1";
+    private final int port = 8080;
     private Socket socket;
     private InputStream inputStream;
     private OnReceiveCallbackBlock receiveCallbackBlock;
