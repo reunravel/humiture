@@ -9,8 +9,8 @@ import android.widget.Spinner;
 
 @SuppressLint("AppCompatCustomView")
 public class ClickSpinner extends Spinner {
-
     final Point touchedPoint = new Point();
+    private int lastPosition = 0;
     private boolean isMoved = false;
     private OnClickMyListener onClickMyListener;
 
@@ -24,6 +24,25 @@ public class ClickSpinner extends Spinner {
 
     public ClickSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    public void setSelection(int position, boolean animate) {
+        super.setSelection(position, animate);
+        if (position == lastPosition) {
+            if (getOnItemSelectedListener() != null)
+                getOnItemSelectedListener().onItemSelected(this, getChildAt(position), position, 0);
+        }
+        lastPosition = position;
+    }
+
+    @Override
+    public void setSelection(int position) {
+        super.setSelection(position);
+        if (getOnItemSelectedListener() != null) {
+            getOnItemSelectedListener().onItemSelected(this, getChildAt(position), position, 0);
+        }
+        lastPosition = position;
     }
 
     @SuppressLint("ClickableViewAccessibility")

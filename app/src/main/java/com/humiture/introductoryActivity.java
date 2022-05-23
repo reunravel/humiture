@@ -22,7 +22,7 @@ import com.humiture.entity.TcpClient;
 import java.util.ArrayList;
 
 public class introductoryActivity extends AppCompatActivity {
-    int i, j;
+    int i, j, k;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,9 @@ public class introductoryActivity extends AppCompatActivity {
             CD_lineDataSet.setCircleRadius(8);
             CD_lineDataSet.setValueFormatter(new LargeValueFormatter(" ℃"));
             CD_lineChart.setData(new LineData(CD_lineDataSet));
-            CD_Description.setText("Celsius Degree: " + CD_value + " ℃");
+            CD_lineChart.setAutoScaleMinMaxEnabled(true);
+            CD_lineChart.setScaleEnabled(false);
+            CD_Description.setText("温度: " + CD_value + " ℃");
 
             LineDataSet RH_lineDataSet = new LineDataSet(RH_lineData, "Relative Humidity");
             RH_lineDataSet.setValueTextSize(12);
@@ -116,19 +118,15 @@ public class introductoryActivity extends AppCompatActivity {
             RH_lineDataSet.setCircleRadius(8);
             RH_lineDataSet.setValueFormatter(new LargeValueFormatter(" %"));
             RH_lineChart.setData(new LineData(RH_lineDataSet));
-            RH_Description.setText("Relative Humidity: " + RH_value + " %");
+            RH_lineChart.setAutoScaleMinMaxEnabled(true);
+            RH_lineChart.setScaleEnabled(false);
+            RH_Description.setText("湿度: " + RH_value + " %");
 
 
             if ((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == 32) {
                 j = CD_value < 0 ? darkColor1 : ((CD_value < 10) ? darkColor2 : ((CD_value < 20) ? darkColor3 : ((CD_value < 30) ? darkColor4 : darkColor5)));
-                CD_lineColors.add(j);
-                CD_CircleColors.add(j);
-                CD_Description.setTextColor(j);
 
-                j = RH_value < 20 ? darkColor1 : ((RH_value < 40) ? darkColor2 : ((RH_value < 60) ? darkColor3 : ((RH_value < 80) ? darkColor4 : darkColor5)));
-                RH_lineColors.add(j);
-                RH_CircleColors.add(j);
-                RH_Description.setTextColor(j);
+                k = RH_value < 20 ? darkColor1 : ((RH_value < 40) ? darkColor2 : ((RH_value < 60) ? darkColor3 : ((RH_value < 80) ? darkColor4 : darkColor5)));
 
                 CD_lineDataSet.setCircleHoleColor(Color.BLACK);
                 CD_AxisLift.setTextColor(Color.WHITE);
@@ -139,14 +137,8 @@ public class introductoryActivity extends AppCompatActivity {
                 RH_AxisLift.setAxisLineColor(Color.WHITE);
             } else {
                 j = CD_value < 0 ? lightColor1 : CD_value < 10 ? lightColor2 : CD_value < 20 ? lightColor3 : CD_value < 30 ? lightColor4 : lightColor5;
-                CD_lineColors.add(j);
-                CD_CircleColors.add(j);
-                CD_Description.setTextColor(j);
 
-                j = RH_value < 20 ? lightColor1 : RH_value < 40 ? lightColor2 : RH_value < 60 ? lightColor3 : RH_value < 80 ? lightColor4 : lightColor5;
-                RH_lineColors.add(j);
-                RH_CircleColors.add(j);
-                RH_Description.setTextColor(j);
+                k = RH_value < 20 ? lightColor1 : RH_value < 40 ? lightColor2 : RH_value < 60 ? lightColor3 : RH_value < 80 ? lightColor4 : lightColor5;
 
                 CD_lineDataSet.setCircleHoleColor(Color.WHITE);
                 CD_AxisLift.setTextColor(Color.BLACK);
@@ -156,6 +148,13 @@ public class introductoryActivity extends AppCompatActivity {
                 RH_AxisLift.setTextColor(Color.BLACK);
                 RH_AxisLift.setAxisLineColor(Color.BLACK);
             }
+            CD_lineColors.add(j);
+            CD_CircleColors.add(j);
+            CD_Description.setTextColor(j);
+
+            RH_lineColors.add(k);
+            RH_CircleColors.add(k);
+            RH_Description.setTextColor(k);
 
             CD_lineDataSet.setValueTextColors(CD_CircleColors);
             CD_lineDataSet.setCircleColors(CD_CircleColors);

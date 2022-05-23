@@ -3,6 +3,7 @@ package com.humiture.entity;
 import static com.humiture.entity.TcpClient.sharedCenter;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Locale;
 
 import io.objectbox.Box;
@@ -53,32 +54,37 @@ public class DataBase {
 
     public static String[] listYearData() {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
-        return dataBox.query().build().property(DataBase_.Year).distinct().findStrings();
+        return sort(dataBox.query().build().property(DataBase_.Year).distinct().findStrings());
     }
 
     public static String[] listMonthData(String year) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
-        return dataBox.query(DataBase_.Year.equal(year)).build().property(DataBase_.Month).distinct().findStrings();
+        return sort(dataBox.query(DataBase_.Year.equal(year)).build().property(DataBase_.Month).distinct().findStrings());
     }
 
     public static String[] listDayData(String year, String month) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
-        return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month))).build().property(DataBase_.Day).distinct().findStrings();
+        return sort(dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month))).build().property(DataBase_.Day).distinct().findStrings());
     }
 
     public static String[] listHourData(String year, String month, String day) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
-        return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day)))).build().property(DataBase_.Hour).distinct().findStrings();
+        return sort(dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day)))).build().property(DataBase_.Hour).distinct().findStrings());
     }
 
     public static String[] listMinuteData(String year, String month, String day, String hour) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
-        return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour))))).build().property(DataBase_.Minute).distinct().findStrings();
+        return sort(dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour))))).build().property(DataBase_.Minute).distinct().findStrings());
     }
 
     public static Query<DataBase> queryData(String year, String month, String day, String hour, String minute) {
         Box<DataBase> dataBox = ObjectBox.boxStore.boxFor(DataBase.class);
         return dataBox.query(DataBase_.Year.equal(year).and(DataBase_.Month.equal(month).and(DataBase_.Day.equal(day).and(DataBase_.Hour.equal(hour)).and(DataBase_.Minute.equal(minute))))).build();
+    }
+
+    public static String[] sort(String[] strings) {
+        Arrays.sort(strings);
+        return strings;
     }
 
     public void setYear(String Year) {
